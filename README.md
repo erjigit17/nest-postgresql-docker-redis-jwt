@@ -11,10 +11,16 @@
 8. JWT,
 
 ### Instruction
-1. check global nest/cli and typescript version `npm outdated -g`
-2. if need to update all `npm update -g` or partial `npm update -g <package_name>`
-3. `nest new starter-project`
-4. `nest g resource users`
-5. `npm i @nestjs/typeorm typeorm pg`
-6. create docker-compose.yml with db images and run `docker-compose up -d`
-7. pgAdmin `127.0.0.1:5050`. ! register server: Hostname `postgres` (check .env POSTGRES_HOST)
+1. Before all
+   1. check global nest/cli and typescript version `npm outdated -g`
+   2. if need to update: for all `npm update -g` or partial `npm update -g <package_name>`
+2. create project `nest new starter-project`
+3. Sep up Postgres 
+   1. `npm i @nestjs/typeorm typeorm pg`
+   2. create docker-compose.yml with db images and run `docker-compose up -d`
+   3. pgAdmin `127.0.0.1:5050`. ! register server: Hostname `postgres` (check .env POSTGRES_HOST)
+4. Configuration
+   1. eslint, to your test))
+   2. `npm i --save @nestjs/config`
+   3. 
+5. create resource `nest g resource users`
