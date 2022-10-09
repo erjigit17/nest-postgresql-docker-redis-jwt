@@ -9,6 +9,7 @@
 6. Graphql,
 7. Docker,
 8. JWT,
+9. eslint, husky,
 
 ### Instruction
 1. Before all
@@ -21,6 +22,6 @@
    3. pgAdmin `127.0.0.1:5050`. ! register server: Hostname `postgres` (check .env POSTGRES_HOST)
 4. Configuration
    1. eslint, to your test))
-   2. `npm i --save @nestjs/config`
+   2. Environment configuration `npm i --save @nestjs/config`
    3. 
 5. create resource `nest g resource users`
