@@ -1,18 +1,37 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import * as Joi from 'joi';
 
 import envConfig from './config/env.config';
-import { UsersModule } from './users/users.module';
+import { UsersModule } from './modules/users/users.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 @Module({
   imports: [
+    UsersModule,
+
     ConfigModule.forRoot({
       validationSchema: Joi.object(envConfig()),
     }),
-    UsersModule,
+
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        type: 'postgres',
+        host: configService.get('DB_HOST'),
+        port: +configService.get('DB_PORT'),
+        username: configService.get('DB_USERNAME'),
+        password: configService.get('DB_PASSWORD'),
+        database: configService.get('DB_DATABASE'),
+        entities: [__dirname + '/../../modules/**/entities/*.entity.js'],
+        migrations: [__dirname + '/../../database/migrations/*.js'],
+
+        autoLoadEntities: true,
+      }),
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
