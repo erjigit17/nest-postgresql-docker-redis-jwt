@@ -9,7 +9,8 @@
 6. Graphql,
 7. Docker,
 8. JWT,
-9. eslint, husky,
+9. eslint, prettier, husky,
+10. swagger
 
 ### Instruction
 1. Before all
@@ -19,7 +20,7 @@
 3. Sep up Postgres 
    1. `npm i @nestjs/typeorm typeorm pg`
    2. create docker-compose.yml with db images and run `docker-compose up -d`
-   3. pgAdmin `127.0.0.1:5050`. ! register server: Hostname `postgres` (check .env POSTGRES_HOST)
+   3. pgAdmin `127.0.0.1:5050`. ! register server: Hostname `postgres` (check docker compose file)
    4. add `TypeOrmModule` to `app.modules.ts` file
 4. Configuration
    1. eslint, to your test))
