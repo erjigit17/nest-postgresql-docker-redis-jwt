@@ -12,7 +12,7 @@ import { RoleType } from '../../../constants';
 @Entity({ name: 'users' })
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  id!: string;
+  id!: Uuid;
 
   @Column({ nullable: true })
   firstName?: string;

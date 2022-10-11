@@ -24,9 +24,6 @@ import { UsersModule } from './modules/users/users.module';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_DATABASE'),
-        // entities: [__dirname + '/../../modules/**/entities/*.entity.ts'],
-        // migrations: [__dirname + '/../../database/migrations/*.ts'],
-
         autoLoadEntities: true,
       }),
     }),

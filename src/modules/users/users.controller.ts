@@ -11,6 +11,8 @@ import {
 } from '@nestjs/common';
 import { DeleteResult, IsNull, Not, UpdateResult } from 'typeorm';
 
+import { UUIDParam } from '../../decorators/http.decorators';
+
 import { User } from './entities/user.entity';
 import { CreateUserDto, UpdateUserDto } from './dto';
 import { UsersService } from './users.service';
@@ -31,8 +33,9 @@ export class UsersController {
   }
 
   @Get(':id')
-  getUser(@Param('id') id: string): Promise<User | null> {
-    return this.usersService.findOne({ id });
+  getUser(@UUIDParam('id') id: Uuid): Promise<User> | Uuid {
+    return id;
+    // return this.usersService.findOne({ id });
   }
 
   @Patch(':id')
