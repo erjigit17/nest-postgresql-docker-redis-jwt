@@ -1,19 +1,17 @@
 import { Exclude } from 'class-transformer';
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity } from 'typeorm';
 
+import {
+  AbstractEntity,
+  IAbstractEntity,
+} from '../../../common/abstract.entity';
 import { RoleType } from '../../../constants';
+import { UseDto } from '../../../decorators/use-dto.decorator';
+import { UserDto } from '../dto/user.dto';
 
 @Entity({ name: 'users' })
-export class User {
-  @PrimaryGeneratedColumn('uuid')
-  id!: Uuid;
-
+@UseDto(UserDto)
+export class UserEntity extends AbstractEntity<UserDto> {
   @Column({ nullable: true })
   firstName?: string;
 
@@ -33,9 +31,22 @@ export class User {
   @Column({ nullable: true })
   avatar?: string;
 
-  @CreateDateColumn()
-  createdAt!: Date;
+  @Column({ default: true })
+  isActual?: boolean;
+}
 
-  @UpdateDateColumn()
-  updatedAt!: Date;
+export interface IUserEntity extends IAbstractEntity<UserDto> {
+  firstName?: string;
+
+  lastName?: string;
+
+  role: RoleType;
+
+  email?: string;
+
+  password?: string;
+
+  avatar?: string;
+
+  fullName?: string;
 }

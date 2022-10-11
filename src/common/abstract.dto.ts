@@ -1,5 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
+import { Uuid } from '../constants/uuid-type';
+
 import type { AbstractEntity } from './abstract.entity';
 
 export class AbstractDto {

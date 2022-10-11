@@ -9,45 +9,48 @@ import {
   Post,
   UseInterceptors,
 } from '@nestjs/common';
+import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { DeleteResult, IsNull, Not, UpdateResult } from 'typeorm';
 
+import { Uuid } from '../../constants/uuid-type';
 import { UUIDParam } from '../../decorators/http.decorators';
 
-import { User } from './entities/user.entity';
-import { CreateUserDto, UpdateUserDto } from './dto';
+import { CreateUserDto, UpdateUserDto, UserDto } from './dto';
 import { UsersService } from './users.service';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('users')
+@ApiTags('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
+  @ApiBody({ type: CreateUserDto })
   async create(@Body() createUserDto: CreateUserDto): Promise<{ id: string }> {
     return this.usersService.create(createUserDto);
   }
 
   @Get()
-  async getUsers(): Promise<User[]> {
+  async getUsers(): Promise<UserDto[]> {
     return this.usersService.findAll({ id: Not(IsNull()) });
   }
 
-  @Get(':id')
-  getUser(@UUIDParam('id') id: Uuid): Promise<User> | Uuid {
-    return id;
-    // return this.usersService.findOne({ id });
+  @Get(':guid')
+  @ApiOkResponse({ description: 'Get user by id', type: UserDto })
+  getUser(@UUIDParam('guid') guid: Uuid): Promise<UserDto> {
+    return this.usersService.findOneUserById(guid);
   }
 
-  @Patch(':id')
+  @Patch(':guid')
   update(
-    @Param('id') id: string,
+    @Param('guid') guid: string,
     @Body() updateUserDto: UpdateUserDto,
   ): Promise<UpdateResult> {
-    return this.usersService.update(id, updateUserDto);
+    return this.usersService.update(guid, updateUserDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string): Promise<DeleteResult> {
-    return this.usersService.remove(id);
+  @Delete(':guid')
+  remove(@Param('guid') guid: string): Promise<DeleteResult> {
+    return this.usersService.remove(guid);
   }
 }

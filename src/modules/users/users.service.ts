@@ -1,8 +1,4 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import bcrypt from 'bcrypt';
 import {
@@ -12,14 +8,17 @@ import {
   UpdateResult,
 } from 'typeorm';
 
-import { User } from './entities/user.entity';
-import { CreateUserDto, UpdateUserDto } from './dto';
+import { Uuid } from '../../constants/uuid-type';
+import { UserNotFoundException } from '../../exceptions/user-not-found.exception';
+
+import { UserEntity } from './entities/user.entity';
+import { CreateUserDto, UpdateUserDto, UserDto } from './dto';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(User)
-    private userRepository: Repository<User>,
+    @InjectRepository(UserEntity)
+    private userRepository: Repository<UserEntity>,
   ) {}
 
   async checkEmailIsTaken(email: string): Promise<void> {
@@ -43,16 +42,19 @@ export class UsersService {
     return { id: user.id };
   }
 
-  async findOne(findDate: FindOptionsWhere<User>): Promise<User> {
-    const user = await this.userRepository.findOneBy(findDate);
-    if (!user) {
-      throw new NotFoundException('User not found.');
+  async findOneUserById(id: Uuid): Promise<UserDto> {
+    const queryBuilder = this.userRepository.createQueryBuilder('user');
+    queryBuilder.where({ id });
+    const userEntity = await queryBuilder.getOne();
+
+    if (!userEntity) {
+      throw new UserNotFoundException();
     }
 
-    return user;
+    return userEntity.toDto();
   }
 
-  async findAll(findDate: FindOptionsWhere<User>): Promise<User[]> {
+  async findAll(findDate: FindOptionsWhere<UserEntity>): Promise<UserEntity[]> {
     return this.userRepository.findBy(findDate);
   }
 

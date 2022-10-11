@@ -1,9 +1,6 @@
 # nest-postgresql-mongodb-graphql-redis-jwt
 ## Starter project
 ### TODO
-1. set up swagger
-2. param uuid 
-3. add isActual to users table
 4. upgrade nodejs to v18
 5. set up husky
 

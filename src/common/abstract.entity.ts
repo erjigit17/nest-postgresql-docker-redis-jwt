@@ -4,6 +4,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+import { Uuid } from '../constants/uuid-type';
+
 import type { AbstractDto } from './abstract.dto';
 import type { Constructor } from './types';
 
