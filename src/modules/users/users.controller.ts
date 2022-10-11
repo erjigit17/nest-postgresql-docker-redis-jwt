@@ -1,25 +1,27 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Delete,
   Get,
   Param,
   Patch,
   Post,
+  UseInterceptors,
 } from '@nestjs/common';
 import { DeleteResult, IsNull, Not, UpdateResult } from 'typeorm';
 
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
+import { CreateUserDto, UpdateUserDto } from './dto';
 import { UsersService } from './users.service';
 
+@UseInterceptors(ClassSerializerInterceptor)
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  async create(@Body() createUserDto: CreateUserDto): Promise<User> {
+  async create(@Body() createUserDto: CreateUserDto): Promise<{ id: string }> {
     return this.usersService.create(createUserDto);
   }
 

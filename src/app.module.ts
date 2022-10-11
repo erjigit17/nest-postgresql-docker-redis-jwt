@@ -5,8 +5,6 @@ import * as Joi from 'joi';
 
 import envConfig from './config/env.config';
 import { UsersModule } from './modules/users/users.module';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 
 @Module({
   imports: [
@@ -33,7 +31,7 @@ import { AppService } from './app.service';
       }),
     }),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

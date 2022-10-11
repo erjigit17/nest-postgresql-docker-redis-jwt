@@ -1,6 +1,6 @@
 import type { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import request from 'supertest';
+import * as request from 'supertest';
 
 import { AppModule } from '../src/app.module';
 
@@ -22,7 +22,8 @@ describe('AuthController (e2e)', () => {
     const response = await request(app.getHttpServer())
       .post('/users')
       .send({
-        name: 'John',
+        firstName: 'John',
+        lastName: 'Dow',
         email: 'john@smith.com',
         password: 'password',
       })
@@ -39,24 +40,21 @@ describe('AuthController (e2e)', () => {
       .expect(200));
 
   it('/users/:id (PATCH)', async () => {
-    const updateUserData = {
-      email: 'john1@smith.com',
-      password: 'password1',
-    };
     const response = await request(app.getHttpServer())
       .patch(`/users/${createdUserUUID}`)
-      .send(updateUserData)
+      .send({
+        email: 'new_john@smith.com',
+      })
       .expect(200);
 
     // accessToken = response.body.token.accessToken;
-    accessToken = response.body.token.accessToken;
   });
 
-  it('/users/:id (DELETE)', () =>
-    request(app.getHttpServer())
-      .delete(`/users/${createdUserUUID}`)
-      .set({ Authorization: `Bearer ${accessToken}` })
-      .expect(200));
+  // it('/users/:id (DELETE)', () =>
+  //   request(app.getHttpServer())
+  //     .delete(`/users/${createdUserUUID}`)
+  //     .set({ Authorization: `Bearer ${accessToken}` })
+  //     .expect(200));
 
   afterAll(() => app.close());
 });

@@ -1,5 +1,11 @@
 # nest-postgresql-mongodb-graphql-redis-jwt
 ## Starter project
+### TODO
+1. fix NOT FOUND GET users/:id
+2. add isActual to users table
+3. upgrade nodejs to v18
+4. set up husky
+
 ### Tools and technologies:
 1. Nest,
 2. Postgresql,
@@ -17,7 +23,7 @@
    1. check global nest/cli and typescript version `npm outdated -g`
    2. if need to update: for all `npm update -g` or partial `npm update -g <package_name>`
 2. create project `nest new starter-project`
-3. Sep up Postgres 
+3. Sep up Postgres
    1. `npm i @nestjs/typeorm typeorm pg`
    2. create docker-compose.yml with db images and run `docker-compose up -d`
    3. pgAdmin `127.0.0.1:5050`. ! register server: Hostname `postgres` (check docker compose file)
@@ -33,7 +39,8 @@
    2. generate migration from entity `npm run migration:generate ./src/database/migrations/<entity_name>`
    3. create migration `npm run migration:create ./src/database/migrations/<migration_name>`
    4. `npm run migrate:run`
-   
+7. Create CRUD for user entity
+
 
 
 https://github.com/NarHakobyan/awesome-nest-boilerplate

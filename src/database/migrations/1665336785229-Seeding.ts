@@ -5,9 +5,11 @@ export class Seeding1665336785229 implements MigrationInterface {
     const userTableExisted = await queryRunner.hasTable('users');
 
     if (userTableExisted) {
+      // admin password is 'open sesame' please chang it
       await queryRunner.query(`
-          INSERT INTO "users"(id, name, email, password)
-          VALUES ('96d8fa92-0982-4d86-bfa8-0d7c5912f2b5', 'July August', 'august@example.com', 'July_August');
+          INSERT INTO "users"(id, "firstName", "lastName", email, password, role)
+          VALUES ('96d8fa92-0982-4d86-bfa8-0d7c5912f2b5', 'admin', 'admin', 'admin@example.com',
+                  '$2b$10$PWiUtODkfBRffAJdDYj3pui.t7pQe1KlDBSjIiPZZS.jPn4MdNn/u', 'ADMIN');
       `);
     }
   }
