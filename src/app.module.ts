@@ -4,10 +4,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import * as Joi from 'joi';
 
 import envConfig from './config/env.config';
+import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
+    AuthModule,
     UsersModule,
 
     ConfigModule.forRoot({

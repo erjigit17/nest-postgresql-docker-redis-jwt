@@ -30,7 +30,7 @@
    1. eslint, to your test))
    2. Environment configuration `npm i --save @nestjs/config`
    3. validation env variables via joi `npm i --save joi`
-5. create resource `nest g resource users`
+5. create resource users `nest g resource modules/users`
    1. install validator `npm i --save class-validator class-transformer`
 6. Migrations
    1. Create TypeOrmCLI config file `ormconfig.ts`
@@ -38,6 +38,7 @@
    3. create migration `npm run migration:create ./src/database/migrations/<migration_name>`
    4. `npm run migrate:run`
 7. Create CRUD for user entity
+8. create resource auth
 
 
 

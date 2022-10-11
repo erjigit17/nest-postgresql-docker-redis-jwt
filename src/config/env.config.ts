@@ -7,7 +7,7 @@ export default registerAs('envConfig', () => ({
     .default('development'),
   PORT: Joi.number().required(),
   JWT_ACCESS_TOKEN_SECRET: Joi.string().required(),
-  JWT_ACCESS_TOKEN_EXPIRATION_TIME: Joi.number().required(),
+  JWT_ACCESS_TOKEN_EXPIRATION_TIME: Joi.number().default(120).required(),
   JWT_REFRESH_TOKEN_SECRET: Joi.string().required(),
   JWT_REFRESH_TOKEN_EXPIRATION_TIME: Joi.number().required(),
   DB_HOST: Joi.string().required(),

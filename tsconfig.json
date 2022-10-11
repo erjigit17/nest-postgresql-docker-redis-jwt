@@ -20,8 +20,7 @@
     "strictNullChecks": true
   },
   "include": [
-    "src/**/*",
-    "global.variables.d.ts"
+    "src/**/*"
   ],
   "exclude": [
     "node_modules",
