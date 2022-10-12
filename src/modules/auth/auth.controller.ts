@@ -45,7 +45,7 @@ export class AuthController {
   }
 
   @Post('/login')
-  @ApiOkResponse({ description: 'Successfully logged.' })
+  @ApiOkResponse({ description: 'Successfully login.' })
   async login(
     @Body() userLoginDto: UserLoginDto,
   ): Promise<UserLoginResponseDto> {

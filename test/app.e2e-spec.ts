@@ -1,6 +1,6 @@
 import type { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import * as request from 'supertest';
+import request from 'supertest';
 
 import { AppModule } from '../src/app.module';
 
@@ -18,19 +18,29 @@ describe('AuthController (e2e)', () => {
     await app.init();
   });
 
-  it('/users (POST)', async () => {
+  it('/auth/register (POST)', async () => {
     const response = await request(app.getHttpServer())
-      .post('/users')
+      .post('/auth/register')
       .send({
         firstName: 'John',
-        lastName: 'Dow',
+        lastName: 'Smith',
         email: 'john@smith.com',
         password: 'password',
       })
       .expect(201);
 
-    createdUserUUID = await response.body.id;
-    console.log(createdUserUUID);
+    accessToken = response.body.AccessToken;
+    createdUserUUID = response.body.guid;
+  });
+
+  it('/auth/login (POST)', async () => {
+    request(app.getHttpServer())
+      .post('/auth/login')
+      .send({
+        email: 'john@smith.com',
+        password: 'password',
+      })
+      .expect(200);
   });
 
   it('/users/:id (GET)', () =>
@@ -39,22 +49,20 @@ describe('AuthController (e2e)', () => {
       .set({ Authorization: `Bearer ${accessToken}` })
       .expect(200));
 
-  it('/users/:id (PATCH)', async () => {
-    const response = await request(app.getHttpServer())
+  it('/users/:id (PATCH)', () =>
+    request(app.getHttpServer())
       .patch(`/users/${createdUserUUID}`)
+      .set({ Authorization: `Bearer ${accessToken}` })
       .send({
         email: 'new_john@smith.com',
       })
-      .expect(200);
+      .expect(200));
 
-    // accessToken = response.body.token.accessToken;
-  });
-
-  // it('/users/:id (DELETE)', () =>
-  //   request(app.getHttpServer())
-  //     .delete(`/users/${createdUserUUID}`)
-  //     .set({ Authorization: `Bearer ${accessToken}` })
-  //     .expect(200));
+  it('/users/:id (DELETE)', () =>
+    request(app.getHttpServer())
+      .delete(`/users/${createdUserUUID}`)
+      .set({ Authorization: `Bearer ${accessToken}` })
+      .expect(200));
 
   afterAll(() => app.close());
 });
