@@ -6,18 +6,27 @@ import {
   Get,
   Param,
   Patch,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import { DeleteResult, IsNull, Not, UpdateResult } from 'typeorm';
 
 import { UUIDParam } from '../../decorators/http.decorators';
 import { Uuid } from '../../types-interfaces';
+import { JWTAuthGuard } from '../auth/guards';
 
 import { UpdateUserDto, UserDto } from './dto';
 import { UsersService } from './users.service';
 
 @UseInterceptors(ClassSerializerInterceptor)
+@UseGuards(JWTAuthGuard)
+@ApiBearerAuth('JWT-auth')
 @Controller('users')
 @ApiTags('users')
 export class UsersController {
@@ -29,7 +38,7 @@ export class UsersController {
   }
 
   @Get(':guid')
-  @ApiOkResponse({ description: 'Get user by id', type: UserDto })
+  @ApiOkResponse({ description: 'Get user by id' })
   getUser(@UUIDParam('guid') guid: Uuid): Promise<UserDto> {
     return this.usersService.findOneUserById(guid);
   }

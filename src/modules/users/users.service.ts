@@ -9,8 +9,8 @@ import {
 } from 'typeorm';
 
 import { UserNotFoundException } from '../../exceptions/user-not-found.exception';
-import { Guid, Uuid } from '../../types-interfaces';
-import { UserRegisterDto } from '../auth/dto/user-register.dto';
+import { Uuid } from '../../types-interfaces';
+import { UserRegisterDto } from '../auth/dto';
 
 import { UserEntity } from './entities/user.entity';
 import { UpdateUserDto, UserDto } from './dto';
@@ -30,7 +30,7 @@ export class UsersService {
     }
   }
 
-  async create(createUserDto: UserRegisterDto): Promise<Guid> {
+  async create(createUserDto: UserRegisterDto): Promise<UserEntity> {
     await this.checkEmailIsTaken(createUserDto.email);
 
     const hash = await bcrypt.hash(createUserDto.password, 10);
@@ -40,7 +40,7 @@ export class UsersService {
       password: hash,
     });
 
-    return { guid: user.id };
+    return user;
   }
 
   async findOneUserById(id: Uuid): Promise<UserDto> {

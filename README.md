@@ -26,7 +26,8 @@
 ### Instruction 
 1. create `.env` file. f.e. `.env.example`
 2. `docker-compose up -d`
-3. documentation `http://127.0.0.1:4000/api#/`
+3. `npm run migrate:run`
+4. `npm start` documentation `http://127.0.0.1:4000/api`
 
 ### Steps
 1. Before all

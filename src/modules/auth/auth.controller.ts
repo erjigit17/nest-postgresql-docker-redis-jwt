@@ -5,16 +5,17 @@ import {
   Post,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 
-import { GuidDto } from '../../common/dtos';
-import { Guid } from '../../types-interfaces';
 import { UsersService } from '../users/users.service';
 
-import { TokenDto } from './dto/TokenDto';
-import { UserRegisterDto } from './dto/user-register.dto';
 import { AuthService } from './auth.service';
-import { UserLoginDto } from './dto';
+import {
+  UserLoginDto,
+  UserLoginResponseDto,
+  UserRegisterDto,
+  UserRegisterResponseDto,
+} from './dto';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('auth')
@@ -26,13 +27,28 @@ export class AuthController {
   ) {}
 
   @Post('/register')
-  @ApiOkResponse({ type: GuidDto, description: 'Successfully Registered' })
-  async userRegister(@Body() userRegisterDto: UserRegisterDto): Promise<Guid> {
-    return this.userService.create(userRegisterDto);
+  @ApiOperation({ description: 'Use hard password and unique emails' })
+  @ApiOkResponse({ description: 'Successfully Registered.' })
+  async userRegister(
+    @Body() userRegisterDto: UserRegisterDto,
+  ): Promise<UserRegisterResponseDto> {
+    const userEntity = await this.userService.create(userRegisterDto);
+
+    const AccessToken = await this.authService.signAccessToken({
+      userId: userEntity.id,
+      role: userEntity.role,
+    });
+
+    const guid = userEntity.id;
+
+    return { AccessToken, guid };
   }
 
   @Post('/login')
-  async login(@Body() userLoginDto: UserLoginDto): Promise<TokenDto> {
+  @ApiOkResponse({ description: 'Successfully logged.' })
+  async login(
+    @Body() userLoginDto: UserLoginDto,
+  ): Promise<UserLoginResponseDto> {
     const userEntity = await this.authService.validateUser(userLoginDto);
 
     const AccessToken = await this.authService.signAccessToken({
