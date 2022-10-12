@@ -1,5 +1,7 @@
 import type { INestApplication } from '@nestjs/common';
+import { ValidationPipe } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
+import { faker } from '@faker-js/faker';
 import request from 'supertest';
 
 import { AppModule } from '../src/app.module';
@@ -9,12 +11,18 @@ describe('AuthController (e2e)', () => {
   let accessToken: string;
   let createdUserUUID: string;
 
+  const randomFirstName = faker.name.firstName();
+  const randomLastName = faker.name.lastName();
+  const randomEmail = faker.internet.email();
+  const randomPassword = 'b*$c*0iqg&DetibrH6n#';
+
   beforeAll(async () => {
     const moduleFixture = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();
+    app.useGlobalPipes(new ValidationPipe());
     await app.init();
   });
 
@@ -22,10 +30,10 @@ describe('AuthController (e2e)', () => {
     const response = await request(app.getHttpServer())
       .post('/auth/register')
       .send({
-        firstName: 'John',
-        lastName: 'Smith',
-        email: 'john@smith.com',
-        password: 'password',
+        firstName: randomFirstName,
+        lastName: randomLastName,
+        email: randomEmail,
+        password: randomPassword,
       })
       .expect(201);
 
@@ -37,8 +45,8 @@ describe('AuthController (e2e)', () => {
     request(app.getHttpServer())
       .post('/auth/login')
       .send({
-        email: 'john@smith.com',
-        password: 'password',
+        email: randomEmail,
+        password: randomPassword,
       })
       .expect(200);
   });

@@ -1,16 +1,18 @@
 # nest-postgresql-redis-jwt
 ## Starter project
 ### TODO
-1. Entities product, orders
-2. pagination
-3. refresh token
-4. images
-5. faker 100 000 rows
-6. upgrade nodejs to v18
-7. set up husky
-8. nestjs app to docker 
-9. deploy
-10. tune typeOrm: limit attributes, index for text search, lin request 
+1. password check regex
+2. Entities product, orders
+3. pagination
+4. moch orm module
+5. refresh token
+6. images
+7. upgrade nodejs to v18
+8. set up husky
+9. nestjs app to docker 
+10. deploy
+11. Performance Testing of an Api, using Artillery and Faker
+12. tune typeOrm: limit attributes, index for text search, lin request 
 
 ### Tools and technologies:
 1. Nest,
@@ -21,6 +23,7 @@
 6. JWT, with refresh token
 7. Redis,
 8. eslint, prettier, husky,
+9. jest, faker
 
 
 ### Instruction 

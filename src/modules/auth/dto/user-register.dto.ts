@@ -1,5 +1,11 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsEmail, IsOptional, Matches, MaxLength } from 'class-validator';
+import {
+  IsEmail,
+  IsOptional,
+  Length,
+  Matches,
+  MaxLength,
+} from 'class-validator';
 
 export class UserRegisterDto {
   @IsOptional()
@@ -17,7 +23,8 @@ export class UserRegisterDto {
   @ApiProperty({ example: 'user@example.com' })
   email: string;
 
-  @Matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/)
+  @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/)
+  @Length(8, 30)
   @ApiProperty()
   password: string;
 }
