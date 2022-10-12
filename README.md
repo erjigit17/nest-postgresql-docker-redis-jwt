@@ -1,22 +1,34 @@
-# nest-postgresql-mongodb-graphql-redis-jwt
+# nest-postgresql-redis-jwt
 ## Starter project
 ### TODO
-4. upgrade nodejs to v18
-5. set up husky
+1. Entities product, orders
+2. pagination
+3. refresh token
+4. images
+5. faker 100 000 rows
+6. upgrade nodejs to v18
+7. set up husky
+8. nestjs app to docker 
+9. deploy
+10. tune typeOrm: limit attributes, index for text search, lin request 
 
 ### Tools and technologies:
 1. Nest,
-2. Postgresql,
-3. Mongodb,
-4. Redis,
-5. Rest API,
-6. Graphql,
-7. Docker,
-8. JWT,
-9. eslint, prettier, husky,
-10. swagger
+2. Rest API, swagger
+3. TypeOrm
+4. Postgresql, pgAdmin
+5. Docker, Docker-compose
+6. JWT, with refresh token
+7. Redis,
+8. eslint, prettier, husky,
 
-### Instruction
+
+### Instruction 
+1. create `.env` file. f.e. `.env.example`
+2. `docker-compose up -d`
+3. documentation `http://127.0.0.1:4000/api#/`
+
+### Steps
 1. Before all
    1. check global nest/cli and typescript version `npm outdated -g`
    2. if need to update: for all `npm update -g` or partial `npm update -g <package_name>`

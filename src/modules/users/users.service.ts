@@ -8,11 +8,12 @@ import {
   UpdateResult,
 } from 'typeorm';
 
-import { Uuid } from '../../constants/uuid-type';
 import { UserNotFoundException } from '../../exceptions/user-not-found.exception';
+import { Guid, Uuid } from '../../types-interfaces';
+import { UserRegisterDto } from '../auth/dto/user-register.dto';
 
 import { UserEntity } from './entities/user.entity';
-import { CreateUserDto, UpdateUserDto, UserDto } from './dto';
+import { UpdateUserDto, UserDto } from './dto';
 
 @Injectable()
 export class UsersService {
@@ -29,7 +30,7 @@ export class UsersService {
     }
   }
 
-  async create(createUserDto: CreateUserDto): Promise<{ id: string }> {
+  async create(createUserDto: UserRegisterDto): Promise<Guid> {
     await this.checkEmailIsTaken(createUserDto.email);
 
     const hash = await bcrypt.hash(createUserDto.password, 10);
@@ -39,7 +40,7 @@ export class UsersService {
       password: hash,
     });
 
-    return { id: user.id };
+    return { guid: user.id };
   }
 
   async findOneUserById(id: Uuid): Promise<UserDto> {
@@ -52,6 +53,12 @@ export class UsersService {
     }
 
     return userEntity.toDto();
+  }
+
+  async getUserByEmail(email: string): Promise<UserEntity | null> {
+    const user = await this.userRepository.findOne({ where: { email } });
+
+    return user;
   }
 
   async findAll(findDate: FindOptionsWhere<UserEntity>): Promise<UserEntity[]> {

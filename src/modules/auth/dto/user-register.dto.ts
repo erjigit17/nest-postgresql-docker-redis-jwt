@@ -1,7 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsEmail, IsOptional, Length, MaxLength } from 'class-validator';
 
-export class CreateUserDto {
+export class UserRegisterDto {
   @IsOptional()
   @MaxLength(255)
   @ApiPropertyOptional()

@@ -6,16 +6,15 @@ import {
   Get,
   Param,
   Patch,
-  Post,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { DeleteResult, IsNull, Not, UpdateResult } from 'typeorm';
 
-import { Uuid } from '../../constants/uuid-type';
 import { UUIDParam } from '../../decorators/http.decorators';
+import { Uuid } from '../../types-interfaces';
 
-import { CreateUserDto, UpdateUserDto, UserDto } from './dto';
+import { UpdateUserDto, UserDto } from './dto';
 import { UsersService } from './users.service';
 
 @UseInterceptors(ClassSerializerInterceptor)
@@ -23,12 +22,6 @@ import { UsersService } from './users.service';
 @ApiTags('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
-
-  @Post()
-  @ApiBody({ type: CreateUserDto })
-  async create(@Body() createUserDto: CreateUserDto): Promise<{ id: string }> {
-    return this.usersService.create(createUserDto);
-  }
 
   @Get()
   async getUsers(): Promise<UserDto[]> {
@@ -50,6 +43,7 @@ export class UsersController {
   }
 
   @Delete(':guid')
+  @ApiOperation({ summary: 'Just for cleaning after tests' })
   remove(@Param('guid') guid: string): Promise<DeleteResult> {
     return this.usersService.remove(guid);
   }

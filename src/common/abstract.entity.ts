@@ -4,10 +4,10 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { Uuid } from '../constants/uuid-type';
+import { Uuid } from '../types-interfaces';
 
 import type { AbstractDto } from './abstract.dto';
-import type { Constructor } from './types';
+import type { Constructor } from './constructor-types';
 
 /**
  * Abstract Entity

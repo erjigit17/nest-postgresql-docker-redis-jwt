@@ -1,12 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { Uuid } from '../constants/uuid-type';
-
 import type { AbstractEntity } from './abstract.entity';
 
 export class AbstractDto {
-  @ApiProperty()
-  id: Uuid;
+  @ApiProperty({ example: 'f9c19cc4-63a0-4770-a6b7-ff0c37efbdc9' })
+  id: string;
 
   @ApiProperty()
   createdAt: Date;

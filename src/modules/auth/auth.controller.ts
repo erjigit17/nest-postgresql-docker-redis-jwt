@@ -5,20 +5,41 @@ import {
   Post,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
+import { GuidDto } from '../../common/dtos';
+import { Guid } from '../../types-interfaces';
+import { UsersService } from '../users/users.service';
+
+import { TokenDto } from './dto/TokenDto';
+import { UserRegisterDto } from './dto/user-register.dto';
 import { AuthService } from './auth.service';
-import { TokenPayloadDto } from './dto';
+import { UserLoginDto } from './dto';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('auth')
 @ApiTags('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private userService: UsersService,
+  ) {}
+
+  @Post('/register')
+  @ApiOkResponse({ type: GuidDto, description: 'Successfully Registered' })
+  async userRegister(@Body() userRegisterDto: UserRegisterDto): Promise<Guid> {
+    return this.userService.create(userRegisterDto);
+  }
 
   @Post('/login')
-  @ApiBody({ type: TokenPayloadDto })
-  async login(@Body() tokenPayloadDto: TokenPayloadDto): Promise<string> {
-    return this.authService.signAccessToken(tokenPayloadDto);
+  async login(@Body() userLoginDto: UserLoginDto): Promise<TokenDto> {
+    const userEntity = await this.authService.validateUser(userLoginDto);
+
+    const AccessToken = await this.authService.signAccessToken({
+      userId: userEntity.id,
+      role: userEntity.role,
+    });
+
+    return { AccessToken };
   }
 }
