@@ -6,7 +6,6 @@ import {
   Get,
   Param,
   Patch,
-  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import {
@@ -15,17 +14,17 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { DeleteResult, IsNull, Not, UpdateResult } from 'typeorm';
+import { DeleteResult, UpdateResult } from 'typeorm';
 
 import { UUIDParam } from '../../decorators/http.decorators';
+import { UserCnx } from '../../decorators/user-context.decorator';
 import { Uuid } from '../../types-interfaces';
-import { JWTAuthGuard } from '../auth/guards';
+import { TokenPayloadDto } from '../auth/dto';
 
 import { UpdateUserDto, UserDto } from './dto';
 import { UsersService } from './users.service';
 
 @UseInterceptors(ClassSerializerInterceptor)
-@UseGuards(JWTAuthGuard)
 @ApiBearerAuth('JWT-auth')
 @Controller('users')
 @ApiTags('users')
@@ -34,7 +33,7 @@ export class UsersController {
 
   @Get()
   async getUsers(): Promise<UserDto[]> {
-    return this.usersService.findAll({ id: Not(IsNull()) });
+    return this.usersService.findAll({ isActual: true });
   }
 
   @Get(':guid')
@@ -43,12 +42,12 @@ export class UsersController {
     return this.usersService.findOneUserById(guid);
   }
 
-  @Patch(':guid')
+  @Patch('/me')
   update(
-    @Param('guid') guid: string,
+    @UserCnx() user: TokenPayloadDto,
     @Body() updateUserDto: UpdateUserDto,
   ): Promise<UpdateResult> {
-    return this.usersService.update(guid, updateUserDto);
+    return this.usersService.update(user.userId, updateUserDto);
   }
 
   @Delete(':guid')

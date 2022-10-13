@@ -13,7 +13,7 @@ import { Uuid } from '../../types-interfaces';
 import { UserRegisterDto } from '../auth/dto';
 
 import { UserEntity } from './entities/user.entity';
-import { UpdateUserDto, UserDto } from './dto';
+import { UpdateUserDto } from './dto';
 
 @Injectable()
 export class UsersService {
@@ -35,15 +35,13 @@ export class UsersService {
 
     const hash = await bcrypt.hash(createUserDto.password, 10);
 
-    const user = await this.userRepository.save({
+    return this.userRepository.save({
       ...createUserDto,
       password: hash,
     });
-
-    return user;
   }
 
-  async findOneUserById(id: Uuid): Promise<UserDto> {
+  async findOneUserById(id: Uuid): Promise<UserEntity> {
     const queryBuilder = this.userRepository.createQueryBuilder('user');
     queryBuilder.where({ id });
     const userEntity = await queryBuilder.getOne();
@@ -52,13 +50,11 @@ export class UsersService {
       throw new UserNotFoundException();
     }
 
-    return userEntity.toDto();
+    return userEntity;
   }
 
   async getUserByEmail(email: string): Promise<UserEntity | null> {
-    const user = await this.userRepository.findOne({ where: { email } });
-
-    return user;
+    return this.userRepository.findOne({ where: { email } });
   }
 
   async findAll(findDate: FindOptionsWhere<UserEntity>): Promise<UserEntity[]> {

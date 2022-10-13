@@ -57,9 +57,9 @@ describe('AuthController (e2e)', () => {
       .set({ Authorization: `Bearer ${accessToken}` })
       .expect(200));
 
-  it('/users/:id (PATCH)', () =>
+  it('/users/me (PATCH)', () =>
     request(app.getHttpServer())
-      .patch(`/users/${createdUserUUID}`)
+      .patch(`/users/me`)
       .set({ Authorization: `Bearer ${accessToken}` })
       .send({
         email: 'new_john@smith.com',

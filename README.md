@@ -3,13 +3,13 @@
 ### TODO
 1. Entities product, feedbacks
 2. pagination
-3. snake case global for orm
-4. moch orm module
-5. refresh token
-6. images
-7. upgrade nodejs to v18
-8. set up husky
-9. nestjs app to docker 
+3. moch orm module
+4. refresh token
+5. images
+6. rename repo
+7. set up husky
+8. nestjs app to docker 
+9. @nestjs/terminus
 10. deploy
 11. Performance Testing of an Api, using Artillery and Faker
 12. tune typeOrm: limit attributes, index for text search, lin request 
@@ -59,6 +59,7 @@
 7. Create CRUD for user entity
 8. create resource auth
 9. debugging for idea ide edit configuration -> npm -> choose script `start:debug` press link `ws://127.0.0.1:9229/eac5f030-3aa9-4039-a093-bc0005373ad3`
+10. logger level production = 'warn', other 'debug'
 
 
 
