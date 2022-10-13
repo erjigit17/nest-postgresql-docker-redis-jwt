@@ -4,7 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 
 import { RoleType } from '../../constants';
-import { InvalidEmailOrPasswordException } from '../../exceptions/invalid-emai-or-password.exception';
+import { InvalidEmailOrPasswordException } from '../../exceptions/invalid-emai-or-password';
 import { Uuid } from '../../types-interfaces';
 import { UserEntity } from '../users/entities/user.entity';
 import { UsersService } from '../users/users.service';

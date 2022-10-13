@@ -13,7 +13,7 @@
 10. deploy
 11. Performance Testing of an Api, using Artillery and Faker
 12. tune typeOrm: limit attributes, index for text search, lin request 
-13. rate limit error 429
+13. 
 14. overload-protection 503 SERVICE UNAVAILABLE
 15. api signal for tracking performance metric 
 
