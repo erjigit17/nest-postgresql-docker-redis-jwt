@@ -5,9 +5,9 @@ services:
     container_name: postgres_container
     image: postgres:15rc2-alpine3.16
     environment:
-      POSTGRES_DB: ${POSTGRES_DB_NAME}
-      POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-changeme}
       PGDATA: /data/postgres
     volumes:
       - postgres:/data/postgres
@@ -32,11 +32,6 @@ services:
     networks:
       - postgres
     restart: unless-stopped
-
-  mongodb:
-    image: mongo:6.0.2-focal
-    ports:
-      - "27018:27017"
 
 
 networks:

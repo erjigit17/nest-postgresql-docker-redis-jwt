@@ -1,12 +1,11 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
-import { AbstractDto } from '../../../common/abstract.dto';
 import { RoleType } from '../../../constants';
-import { UserEntity } from '../entities/user.entity';
 
-export type UserDtoOptions = Partial<{ isActive: boolean }>;
+export class UserDto {
+  @ApiProperty({ example: 'f9c19cc4-63a0-4770-a6b7-ff0c37efbdc9' })
+  id: string;
 
-export class UserDto extends AbstractDto {
   @ApiPropertyOptional()
   firstName?: string;
 
@@ -25,13 +24,9 @@ export class UserDto extends AbstractDto {
   @ApiPropertyOptional()
   isActive?: boolean;
 
-  constructor(user: UserEntity, options?: UserDtoOptions) {
-    super(user);
-    this.firstName = user.firstName;
-    this.lastName = user.lastName;
-    this.role = user.role;
-    this.email = user.email;
-    this.avatar = user.avatar;
-    this.isActive = options?.isActive;
-  }
+  @ApiProperty()
+  createdAt: Date;
+
+  @ApiProperty()
+  updatedAt: Date;
 }

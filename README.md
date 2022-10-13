@@ -1,9 +1,9 @@
 # nest-postgresql-redis-jwt
 ## Starter project
 ### TODO
-1. password check regex
-2. Entities product, orders
-3. pagination
+1. Entities product, feedbacks
+2. pagination
+3. snake case global for orm
 4. moch orm module
 5. refresh token
 6. images
@@ -13,6 +13,9 @@
 10. deploy
 11. Performance Testing of an Api, using Artillery and Faker
 12. tune typeOrm: limit attributes, index for text search, lin request 
+13. rate limit error 429
+14. overload-protection 503 SERVICE UNAVAILABLE
+15. api signal for tracking performance metric 
 
 ### Tools and technologies:
 1. Nest,
@@ -55,6 +58,8 @@
    4. `npm run migrate:run`
 7. Create CRUD for user entity
 8. create resource auth
+9. debugging for idea ide edit configuration -> npm -> choose script `start:debug` press link `ws://127.0.0.1:9229/eac5f030-3aa9-4039-a093-bc0005373ad3`
+
 
 
 
