@@ -22,7 +22,8 @@
     "typeorm": "ts-node ./node_modules/typeorm/cli",
     "migration:generate": "npm run typeorm -- -d ./ormconfig.ts migration:generate",
     "migration:create": "npm run typeorm -- migration:create",
-    "migrate:run": "npm run typeorm -- -d ./ormconfig.ts migration:run"
+    "migrate:run": "npm run typeorm -- -d ./ormconfig.ts migration:run",
+    "gen-mock-data": "ts-node ./mock-data-generate/product-seeds-script.ts"
   },
   "dependencies": {
     "@nestjs/axios": "^0.1.0",
@@ -86,6 +87,7 @@
     "ts-loader": "^9.2.3",
     "ts-node": "^10.0.0",
     "tsconfig-paths": "4.1.0",
+
     "typescript": "^4.7.4"
   },
   "jest": {

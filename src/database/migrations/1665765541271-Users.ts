@@ -1,17 +1,15 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class Users1665656037986 implements MigrationInterface {
-  name = 'Users1665656037986';
+export class Users1665765541271 implements MigrationInterface {
+  name = 'Users1665765541271';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(
-      `CREATE TYPE "public"."users_role_enum" AS ENUM('USER', 'ADMIN')`,
-    );
+    await queryRunner.query(`CREATE TYPE "public"."users_role_enum" AS ENUM('USER', 'ADMIN')`);
     await queryRunner.query(`CREATE TABLE "users"
                              (
                                  "id"        uuid                       NOT NULL DEFAULT uuid_generate_v4(),
-                                 "firstName" character varying,
-                                 "lastName"  character varying,
+                                 "firstName" character varying(255),
+                                 "lastName"  character varying(255),
                                  "email"     character varying          NOT NULL,
                                  "password"  character varying          NOT NULL,
                                  "role"      "public"."users_role_enum" NOT NULL DEFAULT 'USER',

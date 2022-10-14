@@ -1,20 +1,5 @@
 # nest-postgresql-redis-jwt
 ## Starter project
-### TODO
-1. Entities product, feedbacks
-2. pagination
-3. moch orm module
-4. refresh token
-5. images
-6. rename repo
-7. set up husky
-8. nestjs app to docker
-9. deploy
-10. Performance Testing of an Api, using Artillery and Faker
-11. tune typeOrm: limit attributes, index for text search, lin request
-12. overload-protection 503 SERVICE UNAVAILABLE
-13. api signal for tracking performance metric 
-
 ### Tools and technologies:
 1. Nest,
 2. Rest API, swagger
@@ -24,9 +9,8 @@
 6. JWT, with refresh token
 7. Redis,
 8. eslint, prettier, husky,
-9. jest, faker
+9. jest, faker, Artillery
 10. Healthchecks (Terminus)
-
 
 ### Instruction 
 1. create `.env` file. f.e. `.env.example`
@@ -34,7 +18,23 @@
 3. `npm run migrate:run`
 4. `npm start` documentation `http://127.0.0.1:4000/api`
 
-### Steps
+### TODO
+1. CRUD product
+3. pagination
+2. add orm logging
+5. refresh token
+6. images
+7. set up husky
+8. nestjs app to docker
+9. deploy
+10. Caching
+4. mock orm module for unit testing
+11. Performance Testing of an Api, using Artillery and Faker
+12. tune typeOrm: limit attributes, lin request
+13. overload-protection 503 SERVICE UNAVAILABLE
+14. api signal for tracking performance metric
+
+### History
 1. Before all
    1. check global nest/cli and typescript version `npm outdated -g`
    2. if need to update: for all `npm update -g` or partial `npm update -g <package_name>`
@@ -61,6 +61,8 @@
 10. logger level production = 'warn', other 'debug'
 11. add rate limiter,  helmet 
 12. add health-checker end point, for db health and memory heap 
+13. to populate database 10 000 row of products use script `npm run gen-mock-data` then `npm run migrate:run`. Don't open created migration file, it's too heavy! it is best to remove `166576XXXXXXX-Product-Seeding.ts`
+14. add index GIN for full text search
 
 
 ### problems solutions

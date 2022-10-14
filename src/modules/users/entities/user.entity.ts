@@ -3,22 +3,24 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 import { RoleType } from '../../../constants';
 import { Uuid } from '../../../types-interfaces';
+import { ProductEntity } from '../../products/entities/product.entity';
 
 @Entity({ name: 'users' })
 export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
   id: Uuid;
 
-  @Column({ nullable: true })
+  @Column("varchar", { length: 255, nullable: true })
   firstName?: string;
 
-  @Column({ nullable: true })
+  @Column("varchar", { length: 255, nullable: true })
   lastName?: string;
 
   @Column({ unique: true })
@@ -46,4 +48,7 @@ export class UserEntity {
     type: 'timestamp',
   })
   updatedAt: Date;
+
+  @OneToMany(() => ProductEntity, (product) => product.owner)
+  products: ProductEntity[];
 }

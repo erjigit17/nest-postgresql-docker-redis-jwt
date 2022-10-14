@@ -4,6 +4,7 @@ import { Test } from '@nestjs/testing';
 import { faker } from '@faker-js/faker';
 import request from 'supertest';
 
+
 import { AppModule } from '../src/app.module';
 
 describe('AuthController (e2e)', () => {
