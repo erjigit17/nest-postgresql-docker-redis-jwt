@@ -8,14 +8,12 @@
 5. images
 6. rename repo
 7. set up husky
-8. nestjs app to docker 
-9. @nestjs/terminus
-10. deploy
-11. Performance Testing of an Api, using Artillery and Faker
-12. tune typeOrm: limit attributes, index for text search, lin request 
-13. 
-14. overload-protection 503 SERVICE UNAVAILABLE
-15. api signal for tracking performance metric 
+8. nestjs app to docker
+9. deploy
+10. Performance Testing of an Api, using Artillery and Faker
+11. tune typeOrm: limit attributes, index for text search, lin request
+12. overload-protection 503 SERVICE UNAVAILABLE
+13. api signal for tracking performance metric 
 
 ### Tools and technologies:
 1. Nest,
@@ -27,6 +25,7 @@
 7. Redis,
 8. eslint, prettier, husky,
 9. jest, faker
+10. Healthchecks (Terminus)
 
 
 ### Instruction 
@@ -60,8 +59,8 @@
 8. create resource auth
 9. debugging for idea ide edit configuration -> npm -> choose script `start:debug` press link `ws://127.0.0.1:9229/eac5f030-3aa9-4039-a093-bc0005373ad3`
 10. logger level production = 'warn', other 'debug'
-
-
+11. add rate limiter,  helmet 
+12. add health-checker end point, for db health and memory heap 
 
 
 ### problems solutions

@@ -8,7 +8,7 @@ import {
   UpdateResult,
 } from 'typeorm';
 
-import { UserNotFoundException } from '../../exceptions/user-not-found.exception';
+import { UserNotFoundException } from '../../exceptions';
 import { Uuid } from '../../types-interfaces';
 import { UserRegisterDto } from '../auth/dto';
 

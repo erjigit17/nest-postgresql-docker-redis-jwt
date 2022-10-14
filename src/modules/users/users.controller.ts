@@ -27,7 +27,7 @@ import { UsersService } from './users.service';
 @UseInterceptors(ClassSerializerInterceptor)
 @ApiBearerAuth('JWT-auth')
 @Controller('users')
-@ApiTags('users')
+@ApiTags('Users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 

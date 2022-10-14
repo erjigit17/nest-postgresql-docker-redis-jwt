@@ -5,6 +5,7 @@ import * as Joi from 'joi';
 import { LoggerModule } from 'nestjs-pino';
 
 import { AuthModule } from './modules/auth/auth.module';
+import { HealthCheckerModule } from './modules/health-checker/health-checker.module';
 import { UsersModule } from './modules/users/users.module';
 import { envConfig, loggerLevel } from './config';
 
@@ -12,6 +13,8 @@ import { envConfig, loggerLevel } from './config';
   imports: [
     AuthModule,
     UsersModule,
+
+    HealthCheckerModule,
 
     LoggerModule.forRootAsync({
       imports: [ConfigModule],

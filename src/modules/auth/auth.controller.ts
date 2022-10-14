@@ -20,7 +20,7 @@ import {
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('auth')
-@ApiTags('auth')
+@ApiTags('Auth')
 export class AuthController {
   constructor(
     private authService: AuthService,
