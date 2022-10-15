@@ -19,20 +19,19 @@
 4. `npm start` documentation `http://127.0.0.1:4000/api`
 
 ### TODO
-1. pagination
-2. add orm logging
-3. refresh token
-4. images
-5. set up husky, commit conventions
-6. nestjs app to docker
-7. deploy
-8. Caching
-9. mock orm module for unit testing, coverage
-10. Performance Testing of an Api, using Artillery and Faker
-11. tune typeOrm: limit attributes, lin request
-12. overload-protection 503 SERVICE UNAVAILABLE
-13. api signal for tracking performance metric
-14. webpack
+1. add orm logging
+2. refresh token
+3. images
+4. set up husky, commit conventions
+5. nestjs app to docker
+6. deploy
+7. Caching
+8. mock orm module for unit testing, coverage
+9. Performance Testing of an Api, using Artillery and Faker
+10. tune typeOrm: limit attributes, lin request
+11. overload-protection 503 SERVICE UNAVAILABLE
+12. api signal for tracking performance metric
+13. webpack
 
 ### History
 1. Before all

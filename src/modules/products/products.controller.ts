@@ -6,6 +6,7 @@ import {
   Get,
   Patch,
   Post,
+  Query,
   UseInterceptors,
 } from '@nestjs/common';
 import {
@@ -24,6 +25,8 @@ import { TokenPayloadDto } from '../auth/dto';
 
 import { CreateProductDto } from './dto/create-product.dto';
 import { ProductDto } from './dto/product.dto';
+import { ProductAllQueryDto } from './dto/product-all-query-sring.dto';
+import { ProductAllResDto } from './dto/product-all-res.dto';
 import { ProductCreatedResponseDto } from './dto/product-created-response.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductsService } from './products.service';
@@ -34,6 +37,14 @@ import { ProductsService } from './products.service';
 @ApiTags('Products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
+
+  @Get()
+  @ApiOperation({ summary: 'Searching, sorting, pagination' })
+  async getAllProducts(
+    @Query() query: ProductAllQueryDto,
+  ): Promise<ProductAllResDto> {
+    return this.productsService.getProducts(query);
+  }
 
   @Post()
   @ApiCreatedResponse({
@@ -48,9 +59,8 @@ export class ProductsController {
       product,
       user.userId,
     );
-    const guid = productEntity.id;
 
-    return { guid };
+    return { guid: productEntity.id };
   }
 
   @Get('/:guid')

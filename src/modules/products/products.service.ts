@@ -5,6 +5,8 @@ import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { ProductNotFoundException } from '../../exceptions';
 
 import { CreateProductDto } from './dto/create-product.dto';
+import { ProductAllQueryDto } from './dto/product-all-query-sring.dto';
+import { ProductAllResDto } from './dto/product-all-res.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductEntity } from './entities/product.entity';
 
@@ -14,6 +16,42 @@ export class ProductsService {
     @InjectRepository(ProductEntity)
     private productRepository: Repository<ProductEntity>,
   ) {}
+
+  async getProducts(query: ProductAllQueryDto): Promise<ProductAllResDto> {
+    // pagination
+    const page = query.page || 1;
+    const limit = query.perPage || 10;
+    const offset = (page - 1) * limit;
+
+    const queryBuilder = this.productRepository
+      .createQueryBuilder('product')
+      .where('product.isArchive = false');
+
+    // full test search
+    if (query.searchText) {
+      const text = query.searchText;
+      const field = query.searchField || 'title';
+      queryBuilder.andWhere(
+        `to_tsvector(product.${field}) @@ to_tsquery(:text)`,
+        { text },
+      );
+    }
+
+    // sorting
+    if (query.priceSort) {
+      queryBuilder.orderBy('product.price', query.priceSort);
+    }
+
+    const totalCount = await queryBuilder.getCount();
+
+    const products = await queryBuilder
+      .skip(offset) // rowsPerPage
+      .take(limit) // page
+      .select()
+      .getMany();
+
+    return { products, totalCount };
+  }
 
   async create(
     productDto: CreateProductDto,
