@@ -21,10 +21,10 @@ function getValues() {
   const description = faker.hacker.phrase().replaceAll('\'', '\'\'')
   const tags = `{ ${fAdj().replaceAll('\'', '\'\'')} }`
   const price = Math.floor(Math.random() * 100_000) / 100
-  const ownerId = '96d8fa92-0982-4d86-bfa8-0d7c5912f2b5'
+  const owner_id = '96d8fa92-0982-4d86-bfa8-0d7c5912f2b5'
 
 
-  return `('${id}', '${title}', '${description}', '${tags}', '{ ./images }', ${price}, '${ownerId}')`
+  return `('${id}', '${title}', '${description}', '${tags}', '{ ./images }', ${price}, '${owner_id}')`
 }
 
 
@@ -45,7 +45,7 @@ export class ProductSeeding${NOW} implements MigrationInterface {
 
     if (productTableExisted) {
       await queryRunner.query(\`
-          INSERT INTO "products"("id", "title", "descriptions", "tags", "images", "price", "ownerId")
+          INSERT INTO "products"("id", "title", "descriptions", "tags", "images", "price", "owner_id")
           VALUES 
 `
 

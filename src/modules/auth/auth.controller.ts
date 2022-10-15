@@ -5,7 +5,7 @@ import {
   Post,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { Public } from '../../decorators/public.decorator';
 import { UsersService } from '../users/users.service';
@@ -30,7 +30,10 @@ export class AuthController {
   @Post('/register')
   @Public()
   @ApiOperation({ description: 'Use hard password and unique emails' })
-  @ApiOkResponse({ description: 'Successfully Registered.' })
+  @ApiCreatedResponse({
+    description: 'Successfully Registered.',
+    type: UserRegisterResponseDto,
+  })
   async userRegister(
     @Body() userRegisterDto: UserRegisterDto,
   ): Promise<UserRegisterResponseDto> {
@@ -48,7 +51,10 @@ export class AuthController {
 
   @Post('/login')
   @Public()
-  @ApiOkResponse({ description: 'Successfully login.' })
+  @ApiCreatedResponse({
+    description: 'Successfully login.',
+    type: UserLoginResponseDto,
+  })
   async login(
     @Body() userLoginDto: UserLoginDto,
   ): Promise<UserLoginResponseDto> {

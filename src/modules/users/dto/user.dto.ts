@@ -6,19 +6,21 @@ export class UserDto {
   @ApiProperty({ example: 'f9c19cc4-63a0-4770-a6b7-ff0c37efbdc9' })
   id: string;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ example: 'Jimmy' })
   firstName?: string;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ example: 'Fallon' })
   lastName?: string;
 
   @ApiPropertyOptional({ enum: RoleType })
   role: RoleType;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'fallon.j@gmail.com' })
   email: string;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({
+    example: '/avatars/f9c19cc4-63a0-4770-a6b7-ff0c37efbdc9.webp',
+  })
   avatar?: string;
 
   @ApiPropertyOptional()

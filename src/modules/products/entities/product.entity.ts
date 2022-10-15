@@ -16,23 +16,23 @@ export class ProductEntity {
   @PrimaryGeneratedColumn('uuid')
   id: Uuid;
 
-  @Column("varchar", { length: 255 })
+  @Column('varchar', { length: 255 })
   title: string;
 
   @Column({ nullable: true })
   descriptions?: string;
 
-  @Column({ array: true, type: "varchar", length: 255, nullable: true  })
+  @Column({ array: true, type: 'varchar', length: 255, nullable: true })
   images: string[];
 
-  @Column({ array: true, type: "varchar", length: 255, nullable: true  })
+  @Column({ array: true, type: 'varchar', length: 255, nullable: true })
   tags: string[];
 
-  @Column({type: 'money'})
+  @Column({ type: 'money' })
   price: number;
 
-  @Column({ default: true })
-  isArchive?: boolean;
+  @Column({ default: false })
+  isArchive: boolean;
 
   @CreateDateColumn({
     type: 'timestamp',

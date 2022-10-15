@@ -6,15 +6,12 @@ import { LoggerModule } from 'nestjs-pino';
 
 import { AuthModule } from './modules/auth/auth.module';
 import { HealthCheckerModule } from './modules/health-checker/health-checker.module';
+import { ProductsModule } from './modules/products/products.module';
 import { UsersModule } from './modules/users/users.module';
 import { envConfig, loggerLevel } from './config';
-import { ProductsModule } from './modules/products/products.module';
 
 @Module({
   imports: [
-    AuthModule,
-    UsersModule,
-
     HealthCheckerModule,
 
     LoggerModule.forRootAsync({
@@ -53,7 +50,8 @@ import { ProductsModule } from './modules/products/products.module';
         autoLoadEntities: true,
       }),
     }),
-
+    AuthModule,
+    UsersModule,
     ProductsModule,
   ],
   controllers: [],
