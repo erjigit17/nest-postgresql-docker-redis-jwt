@@ -8,7 +8,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { HealthCheckerModule } from './modules/health-checker/health-checker.module';
 import { ProductsModule } from './modules/products/products.module';
 import { UsersModule } from './modules/users/users.module';
-import { envConfig, loggerLevel } from './config';
+import { envConfig, loggerLevel, typeormLoggerLevel } from './config';
 
 @Module({
   imports: [
@@ -32,23 +32,28 @@ import { envConfig, loggerLevel } from './config';
     }),
 
     ConfigModule.forRoot({
-      load: [loggerLevel],
+      load: [loggerLevel, typeormLoggerLevel],
       validationSchema: Joi.object(envConfig()),
     }),
 
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-        host: configService.get('DB_HOST'),
-        port: +configService.get('DB_PORT'),
-        username: configService.get('DB_USERNAME'),
-        password: configService.get('DB_PASSWORD'),
-        database: configService.get('DB_DATABASE'),
-        entities: [__dirname + '/**/*.entity.{js,ts}'],
-        autoLoadEntities: true,
-      }),
+      useFactory: (configService: ConfigService) => {
+        const typeormLogger = configService.get('typeorm-logger');
+
+        return {
+          type: 'postgres',
+          host: configService.get('DB_HOST'),
+          port: +configService.get('DB_PORT'),
+          username: configService.get('DB_USERNAME'),
+          password: configService.get('DB_PASSWORD'),
+          database: configService.get('DB_DATABASE'),
+          entities: [__dirname + '/**/*.entity.{js,ts}'],
+          autoLoadEntities: true,
+          logging: typeormLogger.level,
+        };
+      },
     }),
     AuthModule,
     UsersModule,

@@ -25,13 +25,13 @@ export class ProductAllQueryDto {
   @IsEnum(Sort)
   priceSort?: Sort;
 
-  @ApiPropertyOptional({ default: 1 })
+  @ApiPropertyOptional({ default: 1, minimum: 1 })
   @IsOptional()
   @Min(1)
   @IsInt()
   page?: number;
 
-  @ApiPropertyOptional({ default: 10 })
+  @ApiPropertyOptional({ default: 10, minimum: 1, maximum: 33 })
   @IsOptional()
   @Min(1)
   @Max(33)

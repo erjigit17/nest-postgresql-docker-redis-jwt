@@ -19,19 +19,22 @@
 4. `npm start` documentation `http://127.0.0.1:4000/api`
 
 ### TODO
-1. add orm logging
-2. refresh token
-3. images
+1. refresh token
+2. Caching
+3. images upload
 4. set up husky, commit conventions
 5. nestjs app to docker
 6. deploy
-7. Caching
+7. certbot, Let’s Encrypt
 8. mock orm module for unit testing, coverage
-9. Performance Testing of an Api, using Artillery and Faker
+9. Performance Testing of an Api, Autocanon 
 10. tune typeOrm: limit attributes, lin request
 11. overload-protection 503 SERVICE UNAVAILABLE
 12. api signal for tracking performance metric
-13. webpack
+14. rabbitmq
+13. bull
+15. pact
+16. webpack
 
 ### History
 1. Before all
@@ -62,6 +65,8 @@
 12. add health-checker end point, for db health and memory heap 
 13. to populate database 10 000 row of products use script `npm run gen-mock-data` then `npm run migrate:run`. Don't open created migration file, it's too heavy! it is best to remove `166576XXXXXXX-Product-Seeding.ts`
 14. add index GIN for full text search
+15. full text search, sort and pagination
+16. add orm logging
 
 
 ### problems solutions
